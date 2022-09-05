@@ -34,11 +34,12 @@ class _MyHomePageState extends State<MyHomePage> {
   double bottomNavBarHeight = 60;
 
   List<TabItem> tabItems = List.of([
-    TabItem(Icons.home, "Home", Colors.blue, labelStyle: TextStyle(fontWeight: FontWeight.normal)),
-    TabItem(Icons.search, "Search", Colors.orange,
+    TabItem(Icon(Icons.home), "Home", Colors.blue,
+        labelStyle: TextStyle(fontWeight: FontWeight.normal)),
+    TabItem(Icon(Icons.search), "Search", Colors.orange,
         labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
-    TabItem(Icons.layers, "Reports", Colors.red),
-    TabItem(Icons.notifications, "Notifications", Colors.cyan),
+    TabItem(Icon(Icons.layers), "Reports", Colors.red),
+    TabItem(Icon(Icons.notifications), "Notifications", Colors.cyan),
   ]);
 
   late CircularBottomNavigationController _navigationController;
@@ -93,7 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Center(
           child: Text(
             slogan,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
       ),
