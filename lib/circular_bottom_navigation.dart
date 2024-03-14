@@ -264,13 +264,18 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
           child: Center(
             child: Opacity(
               opacity: opacity,
-              child: FittedBox(
-                fit: BoxFit.fitWidth,
-                child: Text(
-                  widget.tabItems[pos].title,
-                  textAlign: TextAlign.center,
-                  style: widget.tabItems[pos].labelStyle,
-                  maxLines: 1,
+              child: Transform.scale(
+                scale: widget.showLabels
+                    ? (_itemsSelectedState[pos] == 1 ? 1 : 0.7)
+                    : 1,
+                child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Text(
+                    widget.tabItems[pos].title,
+                    textAlign: TextAlign.center,
+                    style: widget.tabItems[pos].labelStyle,
+                    maxLines: 1,
+                  ),
                 ),
               ),
             ),
