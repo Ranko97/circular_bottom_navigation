@@ -11,6 +11,7 @@ typedef CircularBottomNavSelectedCallback = Function(int? selectedPos);
 class CircularBottomNavigation extends StatefulWidget {
   final List<TabItem> tabItems;
   final int selectedPos;
+  final bool showLabels;
   final double barHeight;
   final Color barBackgroundColor;
   final double circleSize;
@@ -26,6 +27,7 @@ class CircularBottomNavigation extends StatefulWidget {
   CircularBottomNavigation(
     this.tabItems, {
     this.selectedPos = 0,
+    this.showLabels = false,
     this.barHeight = 60,
     this.barBackgroundColor = Colors.white,
     this.circleSize = 58,
@@ -237,7 +239,10 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
           top: r.center.dy -
               (widget.iconsSize / 2) -
               (_itemsSelectedState[pos] *
-                  ((widget.barHeight / 2) + widget.circleStrokeWidth)),
+                      ((widget.barHeight / 2) + widget.circleStrokeWidth) +
+                  (widget.showLabels
+                      ? 10 * (1 - _itemsSelectedState[pos])
+                      : 0)),
         ),
       );
 
@@ -249,6 +254,9 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
       } else if (opacity > 1.0) {
         opacity = 1.0;
       }
+
+      if (widget.showLabels) opacity = 1;
+
       children.add(Positioned(
         child: Container(
           width: r.width,
@@ -272,7 +280,9 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
         top: r.top +
             (widget.circleSize / 2) -
             (widget.circleStrokeWidth * 2) +
-            ((1.0 - _itemsSelectedState[pos]) * textHeight),
+            (widget.showLabels
+                ? (0 * textHeight)
+                : ((1.0 - _itemsSelectedState[pos]) * textHeight)),
       ));
 
       if (pos != selectedPos) {

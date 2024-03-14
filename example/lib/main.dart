@@ -112,6 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget bottomNav() {
     return CircularBottomNavigation(
       tabItems,
+      // showLabels: true,
       controller: _navigationController,
       selectedPos: selectedPos,
       barHeight: bottomNavBarHeight,
