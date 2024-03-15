@@ -274,7 +274,7 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
               opacity: opacity,
               child: ScaleTransition(
                 scale: widget.showLabels == false
-                    ? constLabelSizeAnimation
+                    ? constFullSizeLabelAnimation
                     : (selectedPos == previousSelectedPos && selectedPos == pos
                         ? constFullSizeLabelAnimation
                         : selectedPos == pos
