@@ -54,6 +54,9 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
   late AnimationController itemsController;
   late Animation<double> selectedPosAnimation;
   late Animation<double> itemsAnimation;
+  late Animation<double> labelSizeAnimation;
+  late Animation<double> reverseLabelSizeAnimation;
+  late Animation<double> constLabelSizeAnimation;
 
   late List<double> _itemsSelectedState;
 
@@ -101,6 +104,13 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
 
     itemsAnimation = Tween(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(parent: itemsController, curve: _animationsCurve));
+
+    labelSizeAnimation = Tween(begin: 0.7, end: 1.0).animate(
+        CurvedAnimation(parent: itemsController, curve: _animationsCurve));
+    reverseLabelSizeAnimation = Tween(begin: 1.0, end: 0.7).animate(
+        CurvedAnimation(parent: itemsController, curve: _animationsCurve));
+
+    constLabelSizeAnimation = ConstantTween(0.7).animate(itemsAnimation);
   }
 
   Animation<double> makeSelectedPosAnimation(double begin, double end) {
@@ -221,9 +231,9 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
     //Here are the Icons and texts of items
     boxes.asMap().forEach((int pos, Rect r) {
       // Icon
-      Color iconColor = pos == selectedPos
-          ? widget.selectedIconColor
-          : widget.normalIconColor;
+      // Color iconColor = pos == selectedPos
+      //     ? widget.selectedIconColor
+      //     : widget.normalIconColor;
       double scaleFactor = pos == selectedPos ? 1.2 : 1.0;
       children.add(
         Positioned(
@@ -264,10 +274,14 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
           child: Center(
             child: Opacity(
               opacity: opacity,
-              child: Transform.scale(
-                scale: widget.showLabels
-                    ? (_itemsSelectedState[pos] == 1 ? 1 : 0.7)
-                    : 1,
+              child: ScaleTransition(
+                scale: widget.showLabels == false
+                    ? constLabelSizeAnimation
+                    : (selectedPos == pos
+                        ? labelSizeAnimation
+                        : (previousSelectedPos == pos
+                            ? reverseLabelSizeAnimation
+                            : constLabelSizeAnimation)),
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
                   child: Text(
