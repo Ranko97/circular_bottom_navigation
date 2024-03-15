@@ -1,3 +1,6 @@
+## [2.2.0]
+* add option to always show labels
+
 ## [2.1.0]
 * add backgroundBoxShadow property
 
